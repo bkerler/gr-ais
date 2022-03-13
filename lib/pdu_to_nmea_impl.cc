@@ -23,6 +23,7 @@
 #endif
 
 #include <cstdio>
+#include <functional>
 #include <gnuradio/io_signature.h>
 #include "pdu_to_nmea_impl.h"
 
@@ -46,9 +47,9 @@ namespace gr {
         d_designator(designator)
     {
         message_port_register_in(pmt::mp("print"));
-        set_msg_handler(pmt::mp("print"), boost::bind(&pdu_to_nmea_impl::print, this, _1));
+        set_msg_handler(pmt::mp("print"), std::bind(&pdu_to_nmea_impl::print, this, std::placeholders::_1));
         message_port_register_in(pmt::mp("to_nmea"));
-        set_msg_handler(pmt::mp("to_nmea"), boost::bind(&pdu_to_nmea_impl::to_nmea, this, _1));
+        set_msg_handler(pmt::mp("to_nmea"), std::bind(&pdu_to_nmea_impl::to_nmea, this, std::placeholders::_1));
         message_port_register_out(pmt::mp("out"));
     }
 
@@ -105,16 +106,16 @@ namespace gr {
         while(frag_id <= num_frags) {
             if(frag_id > 1) ret += "\n";
             std::string this_sentence =  "!AIVDM,"
-                                         + boost::to_string(num_frags)
+                                         + std::to_string(num_frags)
                                          + ","
-                                         + boost::to_string(frag_id++)
+                                         + std::to_string(frag_id++)
                                          + ",,"
                                          + d_designator
                                          + ",";
 
             std::string this_frag = ascii.substr(frag_offset, nmea_max);
             frag_offset += this_frag.length();
-            this_sentence += this_frag + "," + boost::to_string(int(npad));
+            this_sentence += this_frag + "," + std::to_string(int(npad));
             char wat[3];
             uint8_t checksum = get_checksum(this_sentence);
             snprintf(wat, 3, "%02X", checksum); //NMEA 0183 checksum

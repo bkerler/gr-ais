@@ -1,4 +1,4 @@
-# Copyright 2011 Free Software Foundation, Inc.
+# Copyright 2011,2012 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -16,8 +16,12 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
+
+########################################################################
+# Install public header files
+########################################################################
 install(FILES
-    ais_square_and_fft_sync.block.yml
-    ais_pdu_to_nmea.block.yml
-    DESTINATION share/gnuradio/grc/blocks
+    freqest.h
+    pdu_to_nmea.h
+    DESTINATION include/gnuradio/ais
 )

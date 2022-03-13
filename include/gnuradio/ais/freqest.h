@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /* 
- * Copyright 2014 <+YOU OR YOUR COMPANY+>.
+ * Copyright 2013 <+YOU OR YOUR COMPANY+>.
  * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,36 +18,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_AIS_PDU_TO_NMEA_IMPL_H
-#define INCLUDED_AIS_PDU_TO_NMEA_IMPL_H
 
-#include <gnuradio/ais/pdu_to_nmea.h>
-#include <pmt/pmt.h>
-#include <string>
+#ifndef INCLUDED_AIS_FREQEST_H
+#define INCLUDED_AIS_FREQEST_H
+
+#include <gnuradio/ais/api.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace ais {
 
-    class pdu_to_nmea_impl : public pdu_to_nmea
+    /*!
+     * \brief <+description of block+>
+     * \ingroup ais
+     *
+     */
+    class GR_AIS_API freqest : virtual public gr::sync_block
     {
-     private:
-         void print(pmt::pmt_t msg);
-         void to_nmea(pmt::pmt_t msg);
-         std::vector<uint8_t> unpack_bits(pmt::pmt_t msg, uint8_t *npad);
-         std::string to_ascii(std::vector<uint8_t> msg);
-         uint8_t get_checksum(std::string &msg);
-         std::string to_sentence(std::string ascii, uint8_t npad);
-         std::string msg_to_sentence(pmt::pmt_t msg);
-
-         std::string d_designator;
-
      public:
-      pdu_to_nmea_impl(std::string designator);
-      ~pdu_to_nmea_impl();
+      typedef std::shared_ptr<freqest> sptr;
+
+      /*!
+       * \brief Return a shared_ptr to a new instance of ais::freqest.
+       *
+       * To avoid accidental use of raw pointers, ais::freqest's
+       * constructor is in a private implementation
+       * class. ais::freqest::make is the public interface for
+       * creating new instances.
+       */
+      static sptr make(float sample_rate, int data_rate, int fftlen);
     };
 
   } // namespace ais
 } // namespace gr
 
-#endif /* INCLUDED_AIS_PDU_TO_NMEA_IMPL_H */
+#endif /* INCLUDED_AIS_FREQEST_H */
 

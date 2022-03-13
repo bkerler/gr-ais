@@ -18,36 +18,42 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_AIS_PDU_TO_NMEA_IMPL_H
-#define INCLUDED_AIS_PDU_TO_NMEA_IMPL_H
 
-#include <gnuradio/ais/pdu_to_nmea.h>
-#include <pmt/pmt.h>
-#include <string>
+#ifndef INCLUDED_AIS_PDU_TO_NMEA_H
+#define INCLUDED_AIS_PDU_TO_NMEA_H
+
+#include <gnuradio/ais/api.h>
+#include <gnuradio/block.h>
 
 namespace gr {
   namespace ais {
 
-    class pdu_to_nmea_impl : public pdu_to_nmea
+    /*!
+     * \brief <+description of block+>
+     * \ingroup ais
+     *
+     */
+    class GR_AIS_API pdu_to_nmea : virtual public gr::block
     {
-     private:
-         void print(pmt::pmt_t msg);
-         void to_nmea(pmt::pmt_t msg);
-         std::vector<uint8_t> unpack_bits(pmt::pmt_t msg, uint8_t *npad);
-         std::string to_ascii(std::vector<uint8_t> msg);
-         uint8_t get_checksum(std::string &msg);
-         std::string to_sentence(std::string ascii, uint8_t npad);
-         std::string msg_to_sentence(pmt::pmt_t msg);
-
-         std::string d_designator;
-
      public:
-      pdu_to_nmea_impl(std::string designator);
-      ~pdu_to_nmea_impl();
+      typedef std::shared_ptr<pdu_to_nmea> sptr;
+
+      virtual void to_nmea(pmt::pmt_t) = 0;
+      virtual void print(pmt::pmt_t) = 0;
+
+      /*!
+       * \brief Return a shared_ptr to a new instance of ais::pdu_to_nmea.
+       *
+       * To avoid accidental use of raw pointers, ais::pdu_to_nmea's
+       * constructor is in a private implementation
+       * class. ais::pdu_to_nmea::make is the public interface for
+       * creating new instances.
+       */
+      static sptr make(std::string designator);
     };
 
   } // namespace ais
 } // namespace gr
 
-#endif /* INCLUDED_AIS_PDU_TO_NMEA_IMPL_H */
+#endif /* INCLUDED_AIS_PDU_TO_NMEA_H */
 
