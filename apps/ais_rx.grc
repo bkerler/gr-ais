@@ -1,6 +1,7 @@
 options:
   parameters:
     author: Nick Foster
+    catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
@@ -115,6 +116,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     phase_inc: 2*math.pi*(-25e3/samp_rate)
+    tag_inc_update: 'False'
   states:
     bus_sink: false
     bus_source: false
@@ -131,6 +133,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     phase_inc: 2*math.pi*(25e3/samp_rate)
+    tag_inc_update: 'False'
   states:
     bus_sink: false
     bus_source: false
@@ -217,6 +220,28 @@ blocks:
     coordinate: [455, 615]
     rotation: 0
     state: true
+- name: soapy_rtlsdr_source_0
+  id: soapy_rtlsdr_source
+  parameters:
+    affinity: ''
+    agc: 'False'
+    alias: ''
+    center_freq: 162e6
+    comment: ''
+    dev_args: ''
+    freq_correction: '0'
+    gain: '65'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 344.0]
+    rotation: 0
+    state: true
 - name: soapy_source_0
   id: soapy_source
   parameters:
@@ -227,7 +252,6 @@ blocks:
     amp_gain0: '0'
     ant0: ant
     ant1: RX2
-    args: args
     balance0: '0'
     balance1: '0'
     bw0: 200e3
@@ -244,6 +268,7 @@ blocks:
     dc_removal0: 'True'
     dc_removal1: 'True'
     dev: driver=rtlsdr
+    dev_args: ''
     devname: uhd
     gain_mode0: Overall
     gain_mode1: Overall
@@ -260,6 +285,7 @@ blocks:
     overall_gain1: '10'
     pga_gain0: '24'
     pga_gain1: '24'
+    rf_gain0: '18'
     rfgr_gain: '9'
     rxvga1_gain: '5'
     rxvga2_gain: '0'
@@ -285,7 +311,7 @@ blocks:
     bus_structure: null
     coordinate: [195, 109]
     rotation: 0
-    state: true
+    state: disabled
 - name: stream_args
   id: parameter
   parameters:
@@ -343,8 +369,11 @@ connections:
 - [ais_rx_core_0_0, out, pdu_to_nmea_0_0, print]
 - [blocks_rotator_cc_0, '0', ais_rx_core_0, '0']
 - [blocks_rotator_cc_0_0, '0', ais_rx_core_0_0, '0']
+- [soapy_rtlsdr_source_0, '0', blocks_rotator_cc_0, '0']
+- [soapy_rtlsdr_source_0, '0', blocks_rotator_cc_0_0, '0']
 - [soapy_source_0, '0', blocks_rotator_cc_0, '0']
 - [soapy_source_0, '0', blocks_rotator_cc_0_0, '0']
 
 metadata:
   file_format: 1
+  grc_version: v3.11.0.0git-55-g8526e6f8

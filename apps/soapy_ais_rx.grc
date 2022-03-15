@@ -1,6 +1,7 @@
 options:
   parameters:
     author: Nick Foster
+    catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
@@ -39,7 +40,7 @@ blocks:
     gui_hint: ''
     label: Gain
     min_len: '200'
-    orient: Qt.Horizontal
+    orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0'
     step: '1'
@@ -60,7 +61,7 @@ blocks:
     gui_hint: ''
     label: TED bandwidth
     min_len: '200'
-    orient: Qt.Horizontal
+    orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0.001'
     step: '0.001'
@@ -81,7 +82,7 @@ blocks:
     gui_hint: ''
     label: Correlator threshold
     min_len: '200'
-    orient: Qt.Horizontal
+    orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0'
     step: '0.001'
@@ -194,6 +195,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     phase_inc: 2*math.pi*(-25e3/samp_rate)
+    tag_inc_update: 'False'
   states:
     bus_sink: false
     bus_source: false
@@ -210,6 +212,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     phase_inc: 2*math.pi*(25e3/samp_rate)
+    tag_inc_update: 'False'
   states:
     bus_sink: false
     bus_source: false
@@ -385,7 +388,7 @@ blocks:
     label: Sample rate
     short_id: ''
     type: eng_float
-    value: 200e3
+    value: 300e3
   states:
     bus_sink: false
     bus_source: false
@@ -401,9 +404,8 @@ blocks:
     agc1: 'False'
     alias: ''
     amp_gain0: '0'
-    ant0: TX/RX
+    ant0: RX
     ant1: RX2
-    args: ''
     balance0: '0'
     balance1: '0'
     bw0: '0'
@@ -417,10 +419,11 @@ blocks:
     correction1: '0'
     dc_offset0: '0'
     dc_offset1: '0'
-    dc_removal0: 'True'
+    dc_removal0: 'False'
     dc_removal1: 'True'
     dev: driver=rtlsdr
-    devname: uhd
+    dev_args: ''
+    devname: rtlsdr
     gain_mode0: Overall
     gain_mode1: Overall
     ifgr_gain: '59'
@@ -436,6 +439,7 @@ blocks:
     overall_gain1: '10'
     pga_gain0: '24'
     pga_gain1: '24'
+    rf_gain0: '18'
     rfgr_gain: '9'
     rxvga1_gain: '5'
     rxvga2_gain: '0'
@@ -476,3 +480,4 @@ connections:
 
 metadata:
   file_format: 1
+  grc_version: v3.11.0.0git-55-g8526e6f8

@@ -29,6 +29,8 @@ include(GrPybind)
 ########################################################################
 
 list(APPEND ais_python_files
+    pdu_to_nmea_python.cc
+    freqest_python.cc
     python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(ais

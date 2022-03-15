@@ -19,5 +19,6 @@
 install(FILES
     ais_square_and_fft_sync.block.yml
     ais_pdu_to_nmea.block.yml
+    ais_rx_core.block.yml
     DESTINATION share/gnuradio/grc/blocks
 )

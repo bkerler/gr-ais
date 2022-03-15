@@ -1,6 +1,7 @@
 options:
   parameters:
     author: Nick Foster
+    catch_exceptions: 'True'
     category: '[AIS]'
     cmake_opt: ''
     comment: ''
@@ -266,6 +267,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
+    coding: digital.DIFF_DIFFERENTIAL
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -479,7 +481,7 @@ blocks:
     rrate: (bb_sps*data_rate)/samp_rate
     samp_delay: '0'
     taps: firdes.low_pass(nfilts, samp_rate*nfilts, data_rate*0.6, data_rate*0.1,
-      firdes.WIN_HANN)
+      window.WIN_HANN)
     type: ccf
   states:
     bus_sink: false
@@ -599,3 +601,4 @@ connections:
 
 metadata:
   file_format: 1
+  grc_version: v3.11.0.0git-55-g8526e6f8

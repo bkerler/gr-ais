@@ -21,3 +21,4 @@ except ModuleNotFoundError:
 
 # import any pure python here
 #
+from .square_and_fft_sync_cc import square_and_fft_sync_cc
