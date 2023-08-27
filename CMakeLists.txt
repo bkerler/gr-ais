@@ -16,7 +16,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
 ########################################################################
 cmake_minimum_required(VERSION 3.8)
 project(gr-ais CXX C)
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 enable_testing()
 
 # Install to PyBOMBS target prefix if defined
